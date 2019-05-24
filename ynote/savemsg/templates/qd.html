@@ -1,55 +1,48 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<meta charset="utf-8">
-	<title>签到</title>
+<meta charset="utf-8">
+<title>签到</title>
+<script type="text/javascript" src='jquery.min.js'></script>
 </head>
 <body>
-<form id="form" action="#" method="POST">
-输入学号：
-<br/>
-<input type="" name="xh">
-<br/>
-<input id="imei" name="imei">
-<br/>
-<input id="position" name="position">
-<br/>
-<br/>
-<button onclick="jump()">签到</button>
-</form>
-<script type="text/javascript">
-function jump(){
-	var xh = document.getElementById("xh")
-	var imei = document.getElementById("imei");
-	var form =document.getElementById("form");
-	// 只要成功获取到了位置就可提交，做为测试，否则还需学号与imei且不可见
-	getLocation();
-	form.submit();
-	}
-</script>
+<p id="demo"></p>
 <script>
-var x=document.getElementById("demo");
-function getLocation()
-{
-	if (navigator.geolocation)
-	{
-		navigator.geolocation.getCurrentPosition(showPosition);
+$(document).ready(function(){
+	if (navigator.geolocation){
+		navigator.geolocation.getCurrentPosition(getpos,errorlog);
 	}
-	else
-	{
-		alert("手机没有打开位置");
-		window.location.reload();
+check();
+});
+var pos=[];
+function errorlog(){
+	alert('位置信息获取失败，请打开位置服务后刷新');
+}
+function getpos(posi){
+	//位置加载成功
+	pos = [posi.coords.latitude,position.coords.longitude];
+    console.log(pos);
+    return pos;
+}
+function gettime(){
+	var d =new Date();
+	var n=d.getTime();
+	return n;
+}
+// 首先开始检查函数，确认信息都正确获得，然后开始调用上传函数，一次
+
+function check(){
+	time =gettime();
+	if(pos !=[] && time !=""){
+		var dat ={'time':time,'position':pos};
+		upload(dat);
+	}
+	else{
+		alert("js error");
 	}
 }
-
-function showPosition(pos)
-{
-	var latitude = document.getElementById("latitude");
-	var longitude= document.getElementById("longitude");
-	// 纬度
-	latitude.value = pos.coords.latitude;
-	// 经度
-	longitude.value = pos.coords.longitude;
+function upload(dat){
+	$.post("/data/", dat);
 }
 </script>
 </body>

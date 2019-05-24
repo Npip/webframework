@@ -23,7 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '8wp%42ptxq866ic6=nyrn=_6m3n00i)kkp1s2%xhzv@pgq8*vn'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = 0
+DEBUG = 1
 
 ALLOWED_HOSTS = ['*']
 
@@ -54,7 +54,10 @@ ROOT_URLCONF = 'ynote.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [os.path.join(BASE_DIR, 'savemsg/templates')],
+        'DIRS': [os.path.join(BASE_DIR, 'savemsg/templates'), 
+        	os.path.join(BASE_DIR, "login/templates"),
+                os.path.join(BASE_DIR, "home/templates")
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -118,3 +121,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/2.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, "static_root")
+STATICFILES_DIRS = (
+	os.path.join(BASE_DIR, "static"),
+	)

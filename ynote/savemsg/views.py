@@ -1,11 +1,21 @@
 from django.shortcuts import render
-
+from django.http import HttpResponse
+import json
 # Create your views here.
-def proc(request):
-    #为新访客添加数据
-    if request.method=="GET":
-        return render(request,'qd.html')
-    elif request.method=="POST":
-        imei=request.POST.get("imei")
-        position=request.POST.get("position")
+def collec(request):
+	if request.is_ajax():
+		data=request.POST.get('data')
+		with open('log.txt','r+') as file:
+			file.write(str(data)+',')
+			all = file.read()
+			file.close()
+			list =split(all.strip(','),',')
+			return HttpResponse(json.dumps(list),content_type ='application/json')
 
+def answer(request):
+	if request.method =="POST":
+		 data =request.POST.get()
+		 with open('ceshi',"w")as f:
+		 	f.write(data)
+		 	f.close()
+		 	return "hi"

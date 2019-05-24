@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>测试获取设备IMEI</title>
+	<meta charset="utf-8">
+</head>
+<body>
+<script type="text/javascript">  
+// H5 plus事件处理 
+function plusReady(){  
+alert( "IMEI: " + plus.device.imei );  
+}  
+if(window.plus){  
+plusReady();  
+}else{  
+document.addEventListener("plusready",plusReady,false);  
+}
+</script>
+</body>
+</html>
